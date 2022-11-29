@@ -1,79 +1,107 @@
 #include "font_colossal.hpp"
 
-#include <cctype>
-#include <cstdio>
 #include <iostream>
-#include <array>
+#include <sstream>
+#include <string>
+#include <vector>
 
-namespace font_colossal {
+namespace font_colossal
+{
 
-  // TODO: implement uppercase
-  std::array<std::array<char, font_colossal::FONT_WIDTH>, font_colossal::FONT_HEIGHT> toasciiart(char c) {
-    switch (tolower(c)) {
-      case 'a':
-        return font_colossal::A;
-      case 'b':
-        return font_colossal::B;
-      case 'c':
-        return font_colossal::C;
-      case 'd':
-        return font_colossal::D;
-      case 'e':
-        return font_colossal::E;
-      case 'f':
-        return font_colossal::F;
-      case 'g':
-        return font_colossal::G;
-      case 'h':
-        return font_colossal::H;
-      case 'i':
-        return font_colossal::I;
-      case 'j':
-        return font_colossal::J;
-      case 'k':
-        return font_colossal::K;
-      case 'l':
-        return font_colossal::L;
-      case 'm':
-        return font_colossal::M;
-      case 'n':
-        return font_colossal::N;
-      case 'o':
-        return font_colossal::O;
-      case 'p':
-        return font_colossal::P;
-      case 'q':
-        return font_colossal::Q;
-      case 'r':
-        return font_colossal::R;
-      case 's':
-        return font_colossal::S;
-      case 't':
-        return font_colossal::T;
-      case 'u':
-        return font_colossal::U;
-      case 'v':
-        return font_colossal::V;
-      case 'w':
-        return font_colossal::W;
-      case 'x':
-        return font_colossal::X;
-      case 'y':
-        return font_colossal::Y;
-      case 'z':
-        return font_colossal::Z;
-      default:
-        return font_colossal::BLOCK;
-    }
-  }
-
-  void printascii(std::string s){
-    std::array<std::array<char, font_colossal::FONT_WIDTH>, font_colossal::FONT_HEIGHT> asciichar;
-    for(int h = 0; h < font_colossal::FONT_HEIGHT; h++) {
-      for (char c:s) {
-        std::cout << toasciiart(c).at(h).data();
-      }
-      std::cout << "\n";
-    }
+// TODO: implement uppercase
+const std::string* toasciiart(char c)
+{
+  switch (tolower(c))
+  {
+    case ' ':
+      return &font_colossal::SPACE;
+    case 'a':
+      return &font_colossal::LOWER_A;
+    case 'b':
+      return &font_colossal::LOWER_B;
+    case 'c':
+      return &font_colossal::LOWER_C;
+    case 'd':
+      return &font_colossal::LOWER_D;
+    case 'e':
+      return &font_colossal::LOWER_E;
+    case 'f':
+      return &font_colossal::LOWER_F;
+    case 'g':
+      return &font_colossal::LOWER_G;
+    case 'h':
+      return &font_colossal::LOWER_H;
+    case 'i':
+      return &font_colossal::LOWER_I;
+    case 'j':
+      return &font_colossal::LOWER_J;
+    case 'k':
+      return &font_colossal::LOWER_K;
+    case 'l':
+      return &font_colossal::LOWER_L;
+    case 'm':
+      return &font_colossal::LOWER_M;
+    case 'n':
+      return &font_colossal::LOWER_N;
+    case 'o':
+      return &font_colossal::LOWER_O;
+    case 'p':
+      return &font_colossal::LOWER_P;
+    case 'q':
+      return &font_colossal::LOWER_Q;
+    case 'r':
+      return &font_colossal::LOWER_R;
+    case 's':
+      return &font_colossal::LOWER_S;
+    case 't':
+      return &font_colossal::LOWER_T;
+    case 'u':
+      return &font_colossal::LOWER_U;
+    case 'v':
+      return &font_colossal::LOWER_V;
+    case 'w':
+      return &font_colossal::LOWER_W;
+    case 'x':
+      return &font_colossal::LOWER_X;
+    case 'y':
+      return &font_colossal::LOWER_Y;
+    case 'z':
+      return &font_colossal::LOWER_Z;
+    default:
+      return &font_colossal::BLOCK;
   }
 }
+
+const std::vector<std::string> split(const std::string input, const char delim)
+{
+  auto ss = std::stringstream{input};
+
+  auto result = std::vector<std::string>{};
+  for (std::string line; std::getline(ss, line, delim);)
+  {
+    result.push_back(line);
+  }
+  return result;
+}
+
+void printascii(std::string s)
+{
+  std::string                           asciichar;
+  std::vector<std::vector<std::string>> asciichars;
+  for (char c : s)
+  {
+    asciichar = *toasciiart(c);
+    asciichars.push_back(split(asciichar, '\n'));
+  }
+
+  for (int h = 0; h < font_colossal::FONT_HEIGHT; h++)
+  {
+    for (std::vector<std::string> c : asciichars)
+    {
+      std::cout << c.at(h);
+      std::cout << " ";
+    }
+    std::cout << "\n";
+  }
+}
+}  // namespace font_colossal

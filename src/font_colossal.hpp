@@ -1,94 +1,409 @@
 #ifndef FONT_COLOSSAL_HPP
 #define FONT_COLOSSAL_HPP
 
+#include <algorithm>
+#include <fstream>
 #include <string>
-#include <array>
 
-namespace font_colossal {
-  void printascii(std::string);
+namespace font_colossal
+{
+void          printascii(std::string);
+const uint8_t FONT_HEIGHT = 11;
 
-  const uint8_t FONT_HEIGHT = 11;
-  const uint8_t FONT_WIDTH = 9;
+const std::string BLOCK = R"V0G0N(
+.d8888b.
+.d8888b.
+.d8888b.
+.d8888b.
+.d8888b.
+.d8888b.
+.d8888b.
+.d8888b.
+.d8888b.
+.d8888b.
+.d8888b.
+)V0G0N";
 
-  const std::array<std::array<char, FONT_WIDTH>, FONT_HEIGHT> BLOCK =
-  { ".d8888b.",
-    ".d8888b.",
-    ".d8888b.",
-    ".d8888b.",
-    ".d8888b.",
-    ".d8888b.",
-    ".d8888b.",
-    ".d8888b.",
-    ".d8888b.",
-    ".d8888b.",
-    ".d8888b.",
-  };
+const std::string SPACE = R"V0G0N(
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+)V0G0N";
 
-  const std::array<std::array<char, FONT_WIDTH>, FONT_HEIGHT> A =
-  { "        ",
-    "        ",
-    "        ",
-    " 8888b. ",
-    "    \"88b",
-    ".d888888",
-    "888  888",
-    "\"Y888888",
-    "        ",
-    "        ",
-    "        ",
-  };
 
-  const std::array<std::array<char, FONT_WIDTH>, FONT_HEIGHT> B =
-  { "888     ",
-    "888     ",
-    "888     ",
-    "88888b. ",
-    "888 \"88b",
-    "888  888",
-    "888 d88P",
-    "88888P\" ",
-    "        ",
-    "        ",
-    "        ",
-  };
+const std::string LOWER_A = R"V0G0N(
+        
+        
+        
+ 8888b. 
+    "88b
+.d888888
+888  888
+"Y888888
+        
+        
+        
+)V0G0N";
 
-  // FIXME implement
-  const std::array<std::array<char, FONT_WIDTH>, FONT_HEIGHT> C = A;
-  const std::array<std::array<char, FONT_WIDTH>, FONT_HEIGHT> D = A;
-  const std::array<std::array<char, FONT_WIDTH>, FONT_HEIGHT> E = A;
-  const std::array<std::array<char, FONT_WIDTH>, FONT_HEIGHT> F = A;
-  const std::array<std::array<char, FONT_WIDTH>, FONT_HEIGHT> G = A;
-  const std::array<std::array<char, FONT_WIDTH>, FONT_HEIGHT> H = A;
-  const std::array<std::array<char, FONT_WIDTH>, FONT_HEIGHT> I = A;
-  const std::array<std::array<char, FONT_WIDTH>, FONT_HEIGHT> J = A;
-  const std::array<std::array<char, FONT_WIDTH>, FONT_HEIGHT> K = A;
-  const std::array<std::array<char, FONT_WIDTH>, FONT_HEIGHT> L = A;
-  const std::array<std::array<char, FONT_WIDTH>, FONT_HEIGHT> M = A;
-  const std::array<std::array<char, FONT_WIDTH>, FONT_HEIGHT> N = A;
-  const std::array<std::array<char, FONT_WIDTH>, FONT_HEIGHT> O = A;
-  const std::array<std::array<char, FONT_WIDTH>, FONT_HEIGHT> P = A;
-  const std::array<std::array<char, FONT_WIDTH>, FONT_HEIGHT> Q = A;
-  const std::array<std::array<char, FONT_WIDTH>, FONT_HEIGHT> R = A;
-  const std::array<std::array<char, FONT_WIDTH>, FONT_HEIGHT> S = A;
-  const std::array<std::array<char, FONT_WIDTH>, FONT_HEIGHT> T = A;
-  const std::array<std::array<char, FONT_WIDTH>, FONT_HEIGHT> U = A;
-  const std::array<std::array<char, FONT_WIDTH>, FONT_HEIGHT> V = A;
-  const std::array<std::array<char, FONT_WIDTH>, FONT_HEIGHT> W = A;
-  const std::array<std::array<char, FONT_WIDTH>, FONT_HEIGHT> X = A;
-  const std::array<std::array<char, FONT_WIDTH>, FONT_HEIGHT> Y = A;
-  const std::array<std::array<char, FONT_WIDTH>, FONT_HEIGHT> Z = A;
-}
+const std::string LOWER_B = R"V0G0N(
+888     
+888     
+888     
+88888b. 
+888 "88b
+888  888
+888 d88P
+88888P" 
+        
+        
+        
+)V0G0N";
 
-#endif // FONT_COLOSSAL_HPP
+// FIXME implement
+const std::string LOWER_C = R"V0G0N(
+        
+        
+        
+ .d8888b
+d88P"   
+888     
+Y88b.   
+ "Y8888P
+        
+        
+        
+)V0G0N";
 
-//         888                   888           .d888         888      d8b  d8b 888      888                                                                    888
-//         888                   888          d88P"          888      Y8P  Y8P 888      888                                                                    888
-//         888                   888          888            888               888      888                                                                    888
-// 8888b.  88888b.   .d8888b .d88888  .d88b.  888888 .d88b.  88888b.  888 8888 888  888 888 88888b.d88b.  88888b.   .d88b.  88888b.   .d88888 888d888 .d8888b  888888 888  888 888  888 888  888  888 888  888 888  888 88888888
-//    "88b 888 "88b d88P"   d88" 888 d8P  Y8b 888   d88P"88b 888 "88b 888 "888 888 .88P 888 888 "888 "88b 888 "88b d88""88b 888 "88b d88" 888 888P"   88K      888    888  888 888  888 888  888  888 `Y8bd8P' 888  888    d88P
-//.d888888 888  888 888     888  888 88888888 888   888  888 888  888 888  888 888888K  888 888  888  888 888  888 888  888 888  888 888  888 888     "Y8888b. 888    888  888 Y88  88P 888  888  888   X88K   888  888   d88P
-//888  888 888 d88P Y88b.   Y88b 888 Y8b.     888   Y88b 888 888  888 888  888 888 "88b 888 888  888  888 888  888 Y88..88P 888 d88P Y88b 888 888          X88 Y88b.  Y88b 888  Y8bd8P  Y88b 888 d88P .d8""8b. Y88b 888  d88P
-//"Y888888 88888P"   "Y8888P "Y88888  "Y8888  888    "Y88888 888  888 888  888 888  888 888 888  888  888 888  888  "Y88P"  88888P"   "Y88888 888      88888P'  "Y888  "Y88888   Y88P    "Y8888888P"  888  888  "Y88888 88888888
-//                                                       888               888                                              888           888                                                                       888
-//                                                  Y8b d88P              d88P                                              888           888                                                                  Y8b d88P
-//                                                   "Y88P"             888P"                                               888           888                                                                   "Y88P"
+const std::string LOWER_D = R"V0G0N(
+     888
+     888
+     888
+ .d88888
+d88" 888
+888  888
+Y88b 888
+ "Y88888
+        
+        
+        
+)V0G0N";
+
+const std::string LOWER_E = R"V0G0N(
+        
+        
+        
+ .d88b. 
+d8P  Y8b
+88888888
+Y8b.    
+ "Y8888 
+        
+        
+        
+)V0G0N";
+
+const std::string LOWER_F = R"V0G0N(
+ .d888
+d88P" 
+888   
+888888
+888   
+888   
+888   
+888   
+      
+      
+      
+)V0G0N";
+
+const std::string LOWER_G = R"V0G0N(
+        
+        
+        
+ .d88b. 
+d88P"88b
+888  888
+Y88b 888
+ "Y88888
+     888
+Y8b d88P
+ "Y88P" 
+)V0G0N";
+
+const std::string LOWER_H = R"V0G0N(
+888     
+888     
+888     
+88888b. 
+888 "88b
+888  888
+888  888
+888  888
+        
+        
+        
+)V0G0N";
+
+const std::string LOWER_I = R"V0G0N(
+d8b
+Y8P
+   
+888
+888
+888
+888
+888
+   
+   
+   
+)V0G0N";
+
+const std::string LOWER_J = R"V0G0N(
+ d8b
+ Y8P
+    
+8888
+"888
+ 888
+ 888
+ 888
+ 888
+d88P
+8P" 
+)V0G0N";
+
+const std::string LOWER_K = R"V0G0N(
+888     
+888     
+888     
+888  888
+888 .88P
+888888K 
+888 "88b
+888  888
+        
+        
+        
+)V0G0N";
+
+const std::string LOWER_L = R"V0G0N(
+888
+888
+888
+888
+888
+888
+888
+888
+   
+   
+   
+)V0G0N";
+
+const std::string LOWER_M = R"V0G0N(
+             
+             
+             
+88888b.d88b. 
+888 "888 "88b
+888  888  888
+888  888  888
+888  888  888
+             
+             
+             
+)V0G0N";
+
+const std::string LOWER_N = R"V0G0N(
+        
+        
+        
+88888b. 
+888 "88b
+888  888
+888  888
+888  888
+        
+        
+        
+)V0G0N";
+
+const std::string LOWER_O = R"V0G0N(
+        
+        
+        
+ .d88b. 
+d88""88b
+888  888
+Y88..88P
+ "Y88P" 
+        
+        
+        
+)V0G0N";
+
+const std::string LOWER_P = R"V0G0N(
+        
+        
+        
+88888b. 
+888 "88b
+888  888
+888 d88P
+88888P" 
+888     
+888     
+888     
+)V0G0N";
+
+const std::string LOWER_Q = R"V0G0N(
+        
+        
+        
+ .d88888
+d88" 888
+888  888
+Y88b 888
+ "Y88888
+     888
+     888
+     888
+)V0G0N";
+
+const std::string LOWER_R = R"V0G0N(
+       
+       
+       
+888d888
+888P"  
+888    
+888    
+888    
+       
+       
+       
+)V0G0N";
+
+const std::string LOWER_S = R"V0G0N(
+        
+        
+        
+.d8888b 
+88K     
+"Y8888b.
+     X88
+ 88888P'
+        
+        
+        
+)V0G0N";
+
+const std::string LOWER_T = R"V0G0N(
+888   
+888   
+888   
+888888
+888   
+888   
+Y88b. 
+ "Y888
+      
+      
+      
+)V0G0N";
+
+const std::string LOWER_U = R"V0G0N(
+        
+        
+        
+888  888
+888  888
+888  888
+Y88b 888
+ "Y88888
+        
+        
+        
+)V0G0N";
+
+const std::string LOWER_V = R"V0G0N(
+        
+        
+        
+888  888
+888  888
+Y88  88P
+ Y8bd8P 
+  Y88P  
+        
+        
+        
+)V0G0N";
+
+const std::string LOWER_W = R"V0G0N(
+             
+             
+             
+888  888  888
+888  888  888
+888  888  888
+Y88b 888 d88P
+ "Y8888888P" 
+             
+             
+             
+)V0G0N";
+
+const std::string LOWER_X = R"V0G0N(
+         
+         
+         
+ 888  888
+ `Y8bd8P'
+   X88K  
+ .d8""8b.
+ 888  888
+         
+         
+         
+)V0G0N";
+
+const std::string LOWER_Y = R"V0G0N(
+        
+        
+        
+888  888
+888  888
+888  888
+Y88b 888
+ "Y88888
+     888
+Y8b d88P
+ "Y88P  
+)V0G0N";
+
+const std::string LOWER_Z = R"V0G0N(
+        
+        
+        
+88888888
+   d88P 
+  d88P  
+ d88P   
+88888888
+        
+        
+        
+)V0G0N";
+
+}  // namespace font_colossal
+
+#endif  // FONT_COLOSSAL_HPP
